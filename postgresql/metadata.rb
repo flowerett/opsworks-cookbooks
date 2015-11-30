@@ -22,6 +22,3 @@ end
 %w{redhat centos scientific oracle}.each do |el|
   supports el, "~> 6.0"
 end
-
-depends "build-essential"
-depends "openssl", "~> 4.0"

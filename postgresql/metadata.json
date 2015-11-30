@@ -18,8 +18,7 @@
     "oracle": "~> 6.0"
   },
   "dependencies": {
-    "build-essential": ">= 0.0.0",
-    "openssl": "~> 4.0"
+
   },
   "recommendations": {
 
