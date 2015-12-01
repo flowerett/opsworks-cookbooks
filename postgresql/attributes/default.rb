@@ -17,31 +17,11 @@
 
 default["postgresql"]["version"]                         = "9.4"
 
-#------------------------------------------------------------------------------
-# APT Repository
-#------------------------------------------------------------------------------
-
-default["postgresql"]["apt_distribution"] = node["lsb"]["codename"]
-default["postgresql"]["apt_repository"]   = "apt.postgresql.org"
-default["postgresql"]["apt_uri"]          = "http://apt.postgresql.org/pub/repos/apt"
-default["postgresql"]["apt_components"]   = ["main"]
-default["postgresql"]["apt_key"]          = "http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc"
-
-default["postgresql"]["environment_variables"]           = {}
-default["postgresql"]["pg_ctl_options"]                  = ""
-default["postgresql"]["pg_hba"]                          = []
-default["postgresql"]["pg_hba_defaults"]                 = true
-default["postgresql"]["pg_ident"]                        = []
-default["postgresql"]["start"]                           = "auto"  # auto, manual, disabled
-
-default["postgresql"]["conf"]                            = {}
-default["postgresql"]["initdb_options"]                  = "--locale=en_US.UTF-8"
-
 ##### legacy config
 
-# default['postgresql']['enable_pgdg_apt'] = false
-# default['postgresql']['server']['config_change_notify'] = :restart
-# default['postgresql']['assign_postgres_password'] = true
+default['postgresql']['enable_pgdg_apt'] = false
+default['postgresql']['server']['config_change_notify'] = :restart
+default['postgresql']['assign_postgres_password'] = true
 
 # Establish default database name
 default['postgresql']['database_name'] = 'template1'
