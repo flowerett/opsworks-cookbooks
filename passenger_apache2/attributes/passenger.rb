@@ -64,7 +64,8 @@ default[:passenger][:max_instances_per_app] = 0
 default[:passenger][:max_requests] = 0
 default[:passenger][:high_performance_mode] = 'off'
 default[:passenger][:rails_spawn_method] = 'smart-lv2'
-default[:passenger][:max_pool_size] = 8 # usually will be set by OpsWorks directy. Override if you need a custom size
+default[:passenger][:max_pool_size] = 4 # usually will be set by OpsWorks directy. Override if you need a custom size
+default[:passenger][:min_instances] = 2
 default[:passenger][:friendly_error_pages] = 'off'
 
 include_attribute "passenger_apache2::customize"
