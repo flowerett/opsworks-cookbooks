@@ -3,7 +3,7 @@
 # Recipe:: default
 #
 
-bash 'Add the Fusion Passenger apt repository' do
+bash 'Configure the server timezone as CET' do
   # user 'root'
   code <<-EOC
     sudo timedatectl set-timezone CET
