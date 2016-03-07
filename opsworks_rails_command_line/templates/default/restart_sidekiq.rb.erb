@@ -1,6 +1,6 @@
 task :restart_sidekiq do
-  Rake::Task["stop_sidekiq"].execute
-  Rake::Task["start_sidekiq"].execute
+  invoke :stop_sidekiq
+  invoke :start_sidekiq
 end
 
 desc "Stop sidekiq"
@@ -9,7 +9,7 @@ task :stop_sidekiq do
   sidekiq_timeout = 11
   sidekiq_pid = "tmp/pids/sidekiq.pid"
 
-  exec %Q{
+  puts %x{
     echo '-----> Stop sidekiq'
     if [ -f #{sidekiq_pid} ] && kill -0 `cat #{sidekiq_pid}`> /dev/null 2>&1; then
       RAILS_ENV=<%= @rails_env %> <%= @env_vars %> bundle exec sidekiqctl stop #{sidekiq_pid} #{sidekiq_timeout}
@@ -21,8 +21,12 @@ end
 
 desc "Start sidekiq"
 task :start_sidekiq do
-  exec %Q{
+  puts %x{
     echo '-----> Start sidekiq'
     RAILS_ENV=<%= @rails_env %> <%= @env_vars %> bundle exec sidekiq -d -C config/sidekiq.yml
   }
+end
+
+def invoke(task)
+  Rake.application.invoke_task task
 end
