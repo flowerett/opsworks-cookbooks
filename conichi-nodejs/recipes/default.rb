@@ -3,7 +3,7 @@
 # Recipe:: default
 #
 
-bash 'Configure the server timezone as CET' do
+bash 'Installs latest nodejs from packages' do
   # user 'root'
   code <<-EOC
     curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
