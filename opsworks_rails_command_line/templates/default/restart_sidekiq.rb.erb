@@ -1,6 +1,6 @@
 task :restart_sidekiq do
-  stop_sidekiq
-  start_sidekiq
+  Rake::Task["stop_sidekiq"].execute
+  Rake::Task["start_sidekiq"].execute
 end
 
 desc "Stop sidekiq"
