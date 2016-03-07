@@ -1,0 +1,28 @@
+task :restart_sidekiq do
+  stop_sidekiq
+  start_sidekiq
+end
+
+desc "Stop sidekiq"
+task :stop_sidekiq do
+  # Sets a upper limit of time a process is allowed to finish, before it is killed by sidekiqctl.
+  sidekiq_timeout = 11
+  sidekiq_pid = "tmp/pids/sidekiq.pid"
+
+  exec %Q{
+    echo '-----> Stop sidekiq'
+    if [ -f #{sidekiq_pid} ] && kill -0 `cat #{sidekiq_pid}`> /dev/null 2>&1; then
+      RAILS_ENV=<%= @rails_env %> <%= @env_vars %> bundle exec sidekiqctl stop #{sidekiq_pid} #{sidekiq_timeout}
+    else
+      echo 'Skip stopping sidekiq (no pid file found)'
+    fi
+  }
+end
+
+desc "Start sidekiq"
+task :start_sidekiq do
+  exec %Q{
+    echo '-----> Start sidekiq'
+    RAILS_ENV=<%= @rails_env %> <%= @env_vars %> bundle exec sidekiq -d -C config/sidekiq.yml
+  }
+end
