@@ -26,4 +26,22 @@ node[:deploy].each do |_, deploy|
                   :rails_env => deploy[:rails_env]
               })
   end
+
+  template "#{deploy[:deploy_to]}/current/lib/tasks/rails_restart.rake" do
+    owner deploy[:user]
+    group deploy[:group]
+    mode 0644
+    source "rails_restart.rb.erb"
+  end
+
+  template "#{deploy[:deploy_to]}/current/lib/tasks/restart_sidekiq.rake" do
+    owner deploy[:user]
+    group deploy[:group]
+    mode 0644
+    source "restart_sidekiq.rb.erb"
+    variables({
+                  :env_vars => env_string,
+                  :rails_env => deploy[:rails_env]
+              })
+  end
 end
